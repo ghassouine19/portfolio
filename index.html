@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abderrahmane Ghassouine — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== CSS RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0f0f1a;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.08);
+      --border-glow: rgba(99,179,237,0.3);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0aec0;
+      --text-muted: #718096;
+      --accent-1: #63b3ed;
+      --accent-2: #9f7aea;
+      --accent-3: #4fd1c5;
+      --gradient: linear-gradient(135deg, #63b3ed 0%, #9f7aea 50%, #4fd1c5 100%);
+      --gradient-text: linear-gradient(135deg, #63b3ed, #9f7aea);
+      --shadow-glow: 0 0 30px rgba(99,179,237,0.15);
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--gradient); border-radius: 3px; }
+
+    /* ===== BACKGROUND GRID ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 5%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .nav-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gradient);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn-cv-nav {
+      padding: 8px 18px;
+      border-radius: 8px;
+      background: var(--gradient);
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-cv-nav:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-cv-nav::after { display: none !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===== SECTION BASE ===== */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(99,179,237,0.1);
+      border: 1px solid rgba(99,179,237,0.3);
+      color: var(--accent-1);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section-title span {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-divider {
+      width: 60px; height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+      margin-bottom: 60px;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      max-width: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-orbs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: #63b3ed; top: -150px; right: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: #9f7aea; bottom: -100px; left: -100px; animation-delay: 2s; }
+    .orb-3 { width: 300px; height: 300px; background: #4fd1c5; top: 40%; left: 40%; animation-delay: 4s; }
+    @keyframes floatOrb {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(30px, -30px) scale(1.1); }
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    .hero-greeting {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      background: rgba(99,179,237,0.1);
+      border: 1px solid rgba(99,179,237,0.25);
+      color: var(--accent-1);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.8s ease both;
+    }
+    .hero-greeting .dot {
+      width: 8px; height: 8px;
+      background: var(--accent-3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+    .hero-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      animation: fadeInDown 0.8s ease 0.1s both;
+    }
+    .hero-name span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-typewriter {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 500;
+      color: var(--text-secondary);
+      min-height: 2em;
+      margin-bottom: 20px;
+      animation: fadeInDown 0.8s ease 0.2s both;
+    }
+    .typewriter-text { color: var(--accent-1); font-weight: 600; }
+    .cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--accent-1); margin-left: 2px; vertical-align: middle; animation: blink 1s infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      animation: fadeInDown 0.8s ease 0.3s both;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInDown 0.8s ease 0.4s both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99,179,237,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(99,179,237,0.4); }
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover { background: var(--bg-card-hover); border-color: var(--accent-1); transform: translateY(-3px); }
+    .hero-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 48px;
+      animation: fadeInDown 0.8s ease 0.5s both;
+    }
+    .social-icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+    .social-icon:hover { background: var(--bg-card-hover); border-color: var(--accent-1); color: var(--accent-1); transform: translateY(-3px); }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      animation: fadeIn 1s ease 1s both;
+    }
+    .scroll-indicator .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+      animation: scrollBounce 2s ease infinite;
+    }
+    @keyframes scrollBounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(5px); } }
+
+    /* ===== ABOUT ===== */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-avatar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .avatar-ring {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      padding: 4px;
+      background: var(--gradient);
+      position: relative;
+    }
+    .avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      color: var(--accent-1);
+      overflow: hidden;
+    }
+    .avatar-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .about-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .about-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .about-badge i { color: var(--accent-1); width: 16px; }
+    .about-text h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .about-stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ===== SKILLS ===== */
+    #skills { background: none; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+    .skill-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-4px);
+    }
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .skill-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(99,179,237,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .skill-icon.purple { background: rgba(159,122,234,0.1); color: var(--accent-2); }
+    .skill-icon.cyan { background: rgba(79,209,197,0.1); color: var(--accent-3); }
+    .skill-icon.blue { background: rgba(99,179,237,0.1); color: var(--accent-1); }
+    .skill-icon.orange { background: rgba(246,173,85,0.1); color: #f6ad55; }
+    .skill-card-title { font-weight: 600; font-size: 1rem; }
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .badge:hover { background: rgba(99,179,237,0.15); border-color: rgba(99,179,237,0.4); color: var(--accent-1); }
+    .badge.purple:hover { background: rgba(159,122,234,0.15); border-color: rgba(159,122,234,0.4); color: var(--accent-2); }
+    .badge.cyan:hover { background: rgba(79,209,197,0.15); border-color: rgba(79,209,197,0.4); color: var(--accent-3); }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .project-card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-glow); transform: translateY(-6px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .project-icon { font-size: 2rem; }
+    .project-links { display: flex; gap: 8px; }
+    .project-link {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .project-link:hover { background: rgba(99,179,237,0.15); border-color: var(--accent-1); color: var(--accent-1); }
+    .project-title { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .project-desc { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; flex: 1; margin-bottom: 20px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .stack-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(99,179,237,0.1);
+      color: var(--accent-1);
+      border: 1px solid rgba(99,179,237,0.2);
+    }
+    .stack-badge.purple { background: rgba(159,122,234,0.1); color: var(--accent-2); border-color: rgba(159,122,234,0.2); }
+    .stack-badge.cyan { background: rgba(79,209,197,0.1); color: var(--accent-3); border-color: rgba(79,209,197,0.2); }
+    .stack-badge.green { background: rgba(72,187,120,0.1); color: #48bb78; border-color: rgba(72,187,120,0.2); }
+    .stack-badge.orange { background: rgba(246,173,85,0.1); color: #f6ad55; border-color: rgba(246,173,85,0.2); }
+    .github-repos-section { margin-top: 60px; }
+    .github-repos-title {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 600; color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .github-repos-title i { color: var(--accent-1); }
+    .github-repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .repo-card:hover { border-color: var(--border-glow); transform: translateY(-3px); }
+    .repo-name { font-weight: 600; font-size: 0.95rem; color: var(--accent-1); }
+    .repo-desc { font-size: 0.82rem; color: var(--text-muted); flex: 1; }
+    .repo-meta { display: flex; gap: 16px; font-size: 0.78rem; color: var(--text-muted); }
+    .repo-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ===== TIMELINE (Experience & Education) ===== */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-1), var(--accent-2), var(--accent-3));
+      border-radius: 2px;
+    }
+    .timeline-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      margin-top: 48px;
+    }
+    .timeline-section-title:first-child { margin-top: 0; }
+    .timeline-section-title i { color: var(--accent-1); }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 36px 32px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -48px; top: 4px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--gradient);
+      border: 3px solid var(--bg-primary);
+      box-shadow: 0 0 0 2px var(--accent-1);
+    }
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+    .timeline-card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-glow); }
+    .timeline-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(99,179,237,0.1);
+      border: 1px solid rgba(99,179,237,0.2);
+      color: var(--accent-1);
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .timeline-title { font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .timeline-org { color: var(--accent-2); font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+    .timeline-loc { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .timeline-list { list-style: none; padding: 0; }
+    .timeline-list li {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+    .timeline-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent-3);
+    }
+
+    /* ===== CERTIFICATIONS ===== */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cert-card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-glow); transform: translateY(-4px); }
+    .cert-header { display: flex; align-items: center; gap: 14px; }
+    .cert-logo {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cert-logo.oracle { background: rgba(244,67,54,0.15); color: #f44336; }
+    .cert-logo.cisco { background: rgba(0,150,215,0.15); color: #0096d7; }
+    .cert-logo.coursera { background: rgba(0,86,210,0.15); color: #0056d2; }
+    .cert-logo.ibm { background: rgba(64,137,212,0.15); color: #4089d4; }
+    .cert-logo.ieee { background: rgba(0,161,218,0.15); color: #00a1da; }
+    .cert-info-name { font-weight: 700; font-size: 0.95rem; }
+    .cert-info-issuer { font-size: 0.8rem; color: var(--text-muted); }
+    .cert-date {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .cert-id { font-size: 0.72rem; color: var(--text-muted); font-family: monospace; background: rgba(255,255,255,0.04); padding: 4px 8px; border-radius: 6px; }
+    .cert-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cert-skill-badge {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      background: rgba(159,122,234,0.1);
+      color: var(--accent-2);
+      border: 1px solid rgba(159,122,234,0.2);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 60px;
+    }
+    .contact-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; }
+    .contact-info p { color: var(--text-secondary); margin-bottom: 32px; line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 16px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .contact-link:hover { border-color: var(--accent-1); color: var(--text-primary); transform: translateX(5px); }
+    .contact-link i { color: var(--accent-1); width: 18px; text-align: center; }
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: var(--transition);
+      outline: none;
+      resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-1);
+      background: rgba(99,179,237,0.05);
+      box-shadow: 0 0 0 3px rgba(99,179,237,0.1);
+    }
+    .form-group textarea { min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit:hover { opacity: 0.85; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,179,237,0.3); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      position: relative; z-index: 1;
+      padding: 40px 5%;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-text { color: var(--text-muted); font-size: 0.85rem; }
+    .footer-socials { display: flex; gap: 12px; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      #about .about-grid { grid-template-columns: 1fr; }
+      .about-avatar { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .about-badges { flex-direction: row; flex-wrap: wrap; }
+      .about-badge { flex: 1; min-width: 150px; }
+      #contact .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,15,0.98); backdrop-filter: blur(20px); padding: 24px; gap: 16px; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 70px 5%; }
+      .timeline { padding-left: 28px; }
+      .timeline-dot { left: -36px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; }
+      .about-stats { gap: 20px; }
+      .github-repos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="nav-logo">AG.</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#experience">Expérience</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" class="btn-cv-nav"><i class="fas fa-download"></i> CV</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-greeting">
+        <div class="dot"></div>
+        Disponible pour de nouvelles opportunités
+      </div>
+      <h1 class="hero-name">Abderrahmane <span>Ghassouine</span></h1>
+      <div class="hero-typewriter">
+        <span id="typewriterText" class="typewriter-text"></span><span class="cursor"></span>
+      </div>
+      <p class="hero-bio">
+        Étudiant passionné en Big Data &amp; Cloud Computing, je construis des solutions data-driven 
+        et des applications full-stack modernes. Casablanca, Maroc 🇲🇦
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/ghassouine19" target="_blank" class="btn btn-primary">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="btn btn-outline">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="#" class="btn btn-outline">
+          <i class="fas fa-download"></i> Télécharger CV
+        </a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/ghassouine19" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:ghassouine19abdou@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="#" class="social-icon" title="CV"><i class="fas fa-file-pdf"></i></a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      Défiler
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Qui suis-je ?</span>
+      <h2 class="section-title">À <span>propos</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid animate-on-scroll">
+      <div class="about-avatar">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
+        <div class="about-badges">
+          <div class="about-badge"><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</div>
+          <div class="about-badge"><i class="fas fa-graduation-cap"></i> Master M1 — Big Data &amp; Cloud</div>
+          <div class="about-badge"><i class="fas fa-university"></i> Université Hassan II</div>
+          <div class="about-badge"><i class="fas fa-envelope"></i> ghassouine19abdou@gmail.com</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <h3>Étudiant M1 Big Data &amp; <span style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Cloud Computing</span></h3>
+        <p>
+          Passionné par la data engineering, le cloud computing et le développement full-stack, 
+          je suis actuellement en Master 1 Big Data &amp; Cloud Computing à la Faculté des Sciences Aïn Chock — 
+          Université Hassan II de Casablanca.
+        </p>
+        <p>
+          Mon parcours combine une solide base académique en mathématiques et informatique avec 
+          des expériences pratiques en développement d'applications web (Spring Boot + ReactJS) 
+          et en architecture de pipelines de données sur Microsoft Azure.
+        </p>
+        <p>
+          Je cherche à appliquer mes compétences techniques pour résoudre des problèmes réels 
+          et contribuer à des projets innovants alliant data, cloud et intelligence artificielle.
+        </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">4+</div>
+            <div class="stat-label">Projets</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Stages</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Langues</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Expertise</span>
+      <h2 class="section-title">Compétences <span>Techniques</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon blue"><i class="fas fa-code"></i></div>
+          <div class="skill-card-title">Langages</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge"><i class="fab fa-python"></i> Python</span>
+          <span class="badge"><i class="fab fa-java"></i> Java</span>
+          <span class="badge"><i class="fab fa-js-square"></i> JavaScript</span>
+          <span class="badge"><i class="fas fa-database"></i> SQL</span>
+          <span class="badge">R</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon blue"><i class="fas fa-laptop-code"></i></div>
+          <div class="skill-card-title">Frontend</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge"><i class="fab fa-react"></i> ReactJS</span>
+          <span class="badge">HTML / CSS</span>
+          <span class="badge">Nivo.js</span>
+          <span class="badge">MUI</span>
+          <span class="badge">PWA</span>
+          <span class="badge">CustomTkinter</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon purple"><i class="fas fa-server"></i></div>
+          <div class="skill-card-title">Backend</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge purple">Spring Boot</span>
+          <span class="badge purple">API REST</span>
+          <span class="badge purple">JWT</span>
+          <span class="badge purple">Supabase</span>
+          <span class="badge purple">MySQL</span>
+          <span class="badge purple">MapStruct</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon cyan"><i class="fas fa-cloud"></i></div>
+          <div class="skill-card-title">Data & Cloud</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge cyan">Apache Kafka</span>
+          <span class="badge cyan">Docker</span>
+          <span class="badge cyan">Azure Event Hubs</span>
+          <span class="badge cyan">Azure Functions</span>
+          <span class="badge cyan">Azure Blob Storage</span>
+          <span class="badge cyan">Stream Analytics</span>
+          <span class="badge cyan">PySpark</span>
+          <span class="badge cyan">Airflow</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon blue"><i class="fas fa-brain"></i></div>
+          <div class="skill-card-title">ML / Computer Vision</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge">OpenCV</span>
+          <span class="badge">face_recognition</span>
+          <span class="badge">Deep Learning</span>
+          <span class="badge">CNN</span>
+          <span class="badge">Azure ML Studio</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll">
+        <div class="skill-card-header">
+          <div class="skill-icon orange"><i class="fas fa-tools"></i></div>
+          <div class="skill-card-title">Outils & Méthodes</div>
+        </div>
+        <div class="skill-badges">
+          <span class="badge">Git / GitHub</span>
+          <span class="badge">VSCode</span>
+          <span class="badge">IntelliJ</span>
+          <span class="badge">Draw.io</span>
+          <span class="badge">Agile</span>
+          <span class="badge">UML</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Réalisations</span>
+      <h2 class="section-title">Mes <span>Projets</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Budget Maroc -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">💰</span>
+          <div class="project-links">
+            <a href="https://lnkd.in/exR-kAxC" target="_blank" class="project-link" title="Démo"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Budget Maroc</h3>
+        <p class="project-desc">
+          Application web de gestion des dépenses et du budget pensée pour les besoins marocains. 
+          Suivi des dépenses/revenus en MAD, tableau de bord interactif avec graphiques, budgets 
+          mensuels avec alertes, export PDF/CSV, import SMS bancaire et PWA installable.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge">Supabase</span>
+          <span class="stack-badge">JavaScript</span>
+          <span class="stack-badge cyan">PWA</span>
+          <span class="stack-badge purple">Auth</span>
+        </div>
+      </div>
+
+      <!-- Casablanca Weather Streaming -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">🌤️</span>
+          <div class="project-links">
+            <a href="https://lnkd.in/eAvspfxP" target="_blank" class="project-link" title="Démo"><i class="fas fa-external-link-alt"></i></a>
+            <a href="https://github.com/ghassouine19/casablanca-weather-streaming" target="_blank" class="project-link" title="Code"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Casablanca Weather Streaming</h3>
+        <p class="project-desc">
+          Pipeline de données météo en temps réel pour Casablanca, déployé sur Microsoft Azure. 
+          Architecture event-driven avec Event Hubs, Azure Functions serverless, Blob Storage, 
+          SignalR pour le temps réel et Stream Analytics.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge cyan">Azure</span>
+          <span class="stack-badge">Python</span>
+          <span class="stack-badge cyan">Kafka</span>
+          <span class="stack-badge cyan">Docker</span>
+          <span class="stack-badge orange">Streaming</span>
+        </div>
+      </div>
+
+      <!-- Système de Pointage -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">🎓</span>
+          <div class="project-links">
+            <a href="https://github.com/ghassouine19" target="_blank" class="project-link" title="Code"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Système de Pointage Automatique</h3>
+        <p class="project-desc">
+          Automatisation du pointage des étudiants via reconnaissance faciale. 
+          Détection des visages (Haar Cascade), génération d'embeddings (CNN/Deep Learning), 
+          comparaison et enregistrement automatique de présence en base de données.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge">Python</span>
+          <span class="stack-badge">OpenCV</span>
+          <span class="stack-badge purple">Deep Learning</span>
+          <span class="stack-badge">MySQL</span>
+          <span class="stack-badge">CustomTkinter</span>
+        </div>
+      </div>
+
+      <!-- Location de Véhicules -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">🚗</span>
+          <div class="project-links">
+            <a href="https://github.com/ghassouine19" target="_blank" class="project-link" title="Code"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Application de Location de Véhicules</h3>
+        <p class="project-desc">
+          Plateforme complète de location de véhicules (Projet de Fin d'Études). Interface client 
+          de filtrage/réservation, dashboard analytique administrateur avec Nivo + MUI, 
+          paiement PayPal intégré et architecture agile UML.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge">ReactJS</span>
+          <span class="stack-badge purple">Spring Boot</span>
+          <span class="stack-badge">MySQL</span>
+          <span class="stack-badge purple">JWT</span>
+          <span class="stack-badge green">PayPal</span>
+        </div>
+      </div>
+
+      <!-- RH Gestion App -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">👥</span>
+          <div class="project-links">
+            <a href="https://github.com/ghassouine19/RH_gestion_app" target="_blank" class="project-link" title="Code"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Application RH Complète</h3>
+        <p class="project-desc">
+          Application web de gestion des ressources humaines développée lors du stage chez SYPEX. 
+          Gestion des congés, des employés, des contrats et des validations. 
+          Interface moderne avec Spring Boot backend et ReactJS frontend.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge purple">Spring Boot</span>
+          <span class="stack-badge">ReactJS</span>
+          <span class="stack-badge">MySQL</span>
+          <span class="stack-badge purple">REST API</span>
+        </div>
+      </div>
+
+      <!-- Transport Data Engineering -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-header">
+          <span class="project-icon">🚛</span>
+          <div class="project-links">
+            <a href="https://github.com/ghassouine19/transport-data-engineering" target="_blank" class="project-link" title="Code"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3 class="project-title">Transport Data Engineering Pipeline</h3>
+        <p class="project-desc">
+          Pipeline de Data Engineering pour le secteur Transport &amp; Logistique. 
+          Architecture complète avec ingestion, traitement et analyse des données 
+          de transport en temps réel.
+        </p>
+        <div class="project-stack">
+          <span class="stack-badge cyan">Kafka</span>
+          <span class="stack-badge cyan">PySpark</span>
+          <span class="stack-badge cyan">Airflow</span>
+          <span class="stack-badge">Python</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub Repos Supplémentaires -->
+    <div class="github-repos-section animate-on-scroll">
+      <div class="github-repos-title">
+        <i class="fab fa-github"></i>
+        Autres dépôts GitHub publics
+      </div>
+      <div class="github-repos-grid">
+        <a href="https://github.com/ghassouine19/stock-data-pipeline" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>stock-data-pipeline</div>
+          <div class="repo-desc">Pipeline de données boursières en Python</div>
+          <div class="repo-meta">
+            <span><i class="fas fa-circle" style="color:#3572A5;font-size:0.6em;"></i> Python</span>
+          </div>
+        </a>
+        <a href="https://github.com/ghassouine19/pyspark-hadoop-log-analysis" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>pyspark-hadoop-log-analysis</div>
+          <div class="repo-desc">Analyse de logs avec PySpark et Hadoop</div>
+          <div class="repo-meta">
+            <span><i class="fas fa-circle" style="color:#3572A5;font-size:0.6em;"></i> Python</span>
+          </div>
+        </a>
+        <a href="https://github.com/ghassouine19/finance-dw-ssis-powerbi" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>finance-dw-ssis-powerbi</div>
+          <div class="repo-desc">Data Warehouse Finance avec SSIS et Power BI</div>
+          <div class="repo-meta">
+            <span><i class="fas fa-circle" style="color:#e38c00;font-size:0.6em;"></i> TSQL</span>
+          </div>
+        </a>
+        <a href="https://github.com/ghassouine19/job-skills-platform" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>job-skills-platform</div>
+          <div class="repo-desc">Plateforme de compétences et offres d'emploi</div>
+          <div class="repo-meta">
+            <span><i class="fab fa-github" style="font-size:0.8em;"></i> GitHub</span>
+          </div>
+        </a>
+        <a href="https://github.com/ghassouine19/TP1_bigdata" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>TP1_bigdata</div>
+          <div class="repo-desc">Travaux pratiques Big Data</div>
+          <div class="repo-meta">
+            <span><i class="fab fa-github" style="font-size:0.8em;"></i> GitHub</span>
+          </div>
+        </a>
+        <a href="https://github.com/ghassouine19/GermanCredit_TP" target="_blank" class="repo-card">
+          <div class="repo-name"><i class="fas fa-code-branch" style="margin-right:6px;font-size:0.8em;"></i>GermanCredit_TP</div>
+          <div class="repo-desc">Analyse du dataset German Credit (ML)</div>
+          <div class="repo-meta">
+            <span><i class="fab fa-github" style="font-size:0.8em;"></i> GitHub</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE & FORMATION ===== -->
+  <section id="experience">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Parcours</span>
+      <h2 class="section-title">Expérience &amp; <span>Formation</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="timeline animate-on-scroll">
+
+      <!-- EXPERIENCE -->
+      <div class="timeline-section-title">
+        <i class="fas fa-briefcase"></i> Expérience Professionnelle
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date"><i class="far fa-calendar-alt"></i> Août 2025 — Septembre 2025</div>
+          <div class="timeline-title">Développeur Full Stack — Stage</div>
+          <div class="timeline-org">SYPEX</div>
+          <div class="timeline-loc"><i class="fas fa-map-marker-alt"></i> Casablanca-Settat, Maroc · 2 mois</div>
+          <ul class="timeline-list">
+            <li>Développement d'une application web de gestion RH complète (congés, personnel, contrats)</li>
+            <li>Conception et implémentation des modules de congés, employés et validations</li>
+            <li>Amélioration de l'interface utilisateur et intégration de nouvelles fonctionnalités RH</li>
+            <li>Collaboration avec l'équipe pour l'analyse des besoins et les tests fonctionnels</li>
+            <li>Stack : <strong>Spring Boot, ReactJS, MySQL, REST API</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date"><i class="far fa-calendar-alt"></i> Juin 2025 — Juillet 2025</div>
+          <div class="timeline-title">Automatisme et Informatique Industrielle — Stage</div>
+          <div class="timeline-org">UDECO</div>
+          <div class="timeline-loc"><i class="fas fa-map-marker-alt"></i> Casablanca-Settat, Maroc · 2 mois</div>
+          <ul class="timeline-list">
+            <li>Formation et participation à des projets d'automatisme industriel</li>
+            <li>Programmation et configuration d'automates Siemens (Step 7 / TIA Portal)</li>
+            <li>Réalisation d'exercices pratiques sur l'adressage des capteurs et actionneurs</li>
+            <li>Initiation à la supervision industrielle et à la communication entre équipements</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FORMATION -->
+      <div class="timeline-section-title" style="margin-top:48px;">
+        <i class="fas fa-graduation-cap"></i> Formation Académique
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2024 — En cours</div>
+          <div class="timeline-title">Master M1 — Big Data &amp; Cloud Computing</div>
+          <div class="timeline-org">Faculté des Sciences Aïn Chock — Université Hassan II</div>
+          <div class="timeline-loc"><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</div>
+          <ul class="timeline-list">
+            <li>Data Engineering, Cloud Computing, Machine Learning</li>
+            <li>Apache Kafka, Spark, Docker, Microsoft Azure</li>
+            <li>Architecture de systèmes distribués et pipelines de données</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2021 — 2024</div>
+          <div class="timeline-title">Licence — Sciences Mathématiques et Informatique</div>
+          <div class="timeline-org">Faculté des Sciences Aïn Chock — Université Hassan II</div>
+          <div class="timeline-loc"><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</div>
+          <ul class="timeline-list">
+            <li>Option : Systèmes d'Information Décisionnels (SID)</li>
+            <li>Bases de données, algorithmes, mathématiques appliquées</li>
+            <li>Développement logiciel et architecture des systèmes</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CERTIFICATIONS ===== -->
+  <section id="certifications">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Accréditations</span>
+      <h2 class="section-title">Mes <span>Certifications</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="certs-grid">
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo oracle"><i class="fas fa-database"></i></div>
+          <div>
+            <div class="cert-info-name">MySQL Implementation Certified Associate</div>
+            <div class="cert-info-issuer">Oracle University</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">103423434MYSQLIMPOCA</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">MySQL</span>
+          <span class="cert-skill-badge">SGBD</span>
+          <span class="cert-skill-badge">HeatWave</span>
+          <span class="cert-skill-badge">Oracle Cloud</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo ieee"><i class="fas fa-robot"></i></div>
+          <div>
+            <div class="cert-info-name">Introduction to Agentic AI</div>
+            <div class="cert-info-issuer">IEEE</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">0A188F17</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">Agentic AI</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo ibm"><i class="fas fa-cloud"></i></div>
+          <div>
+            <div class="cert-info-name">Cloud Computing Fundamentals</div>
+            <div class="cert-info-issuer">IBM</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">IBM Cloud</span>
+          <span class="cert-skill-badge">Cloud Computing</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo cisco"><i class="fas fa-brain"></i></div>
+          <div>
+            <div class="cert-info-name">Introduction to Modern AI</div>
+            <div class="cert-info-issuer">Cisco</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">dc3ddaa1-420d-4b08-a968-fb1f5181ff47</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">AI</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo cisco"><i class="fab fa-python"></i></div>
+          <div>
+            <div class="cert-info-name">Python Essentials 1</div>
+            <div class="cert-info-issuer">Cisco</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">b886f8f9-ddea-4adb-8f6a-bf81a9d07836</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">Python</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo coursera" style="font-size:0.9rem;font-weight:800;">C</div>
+          <div>
+            <div class="cert-info-name">AWS S3 Basics</div>
+            <div class="cert-info-issuer">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">VOVMIB1APD6E</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">AWS</span>
+          <span class="cert-skill-badge">S3</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo coursera" style="font-size:0.9rem;font-weight:800;">C</div>
+          <div>
+            <div class="cert-info-name">Create a VPC Using AWS</div>
+            <div class="cert-info-issuer">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Mars 2026</div>
+        <div class="cert-id">8OSE3ZPHFO0Z</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">AWS</span>
+          <span class="cert-skill-badge">VPC</span>
+          <span class="cert-skill-badge">Networking</span>
+        </div>
+      </div>
+
+      <div class="cert-card animate-on-scroll">
+        <div class="cert-header">
+          <div class="cert-logo coursera" style="font-size:0.9rem;font-weight:800;">C</div>
+          <div>
+            <div class="cert-info-name">ML Pipelines with Azure ML Studio</div>
+            <div class="cert-info-issuer">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-date"><i class="far fa-calendar-check"></i> Février 2026</div>
+        <div class="cert-id">39EQ0XNAHVNZ</div>
+        <div class="cert-skills">
+          <span class="cert-skill-badge">Azure ML</span>
+          <span class="cert-skill-badge">ML Pipelines</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="animate-on-scroll">
+      <span class="section-tag">Me joindre</span>
+      <h2 class="section-title">Me <span>Contacter</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info animate-on-scroll">
+        <h3>Travaillons ensemble 🚀</h3>
+        <p>
+          Que vous ayez une opportunité de stage, un projet collaboratif ou simplement 
+          envie d'échanger sur la data, le cloud ou le développement — 
+          je serai ravi de vous répondre !
+        </p>
+        <div class="contact-links">
+          <a href="mailto:ghassouine19abdou@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <div style="font-weight:600;color:var(--text-primary);">Email</div>
+              <div style="font-size:0.82rem;">ghassouine19abdou@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="contact-link">
+            <i class="fab fa-linkedin"></i>
+            <div>
+              <div style="font-weight:600;color:var(--text-primary);">LinkedIn</div>
+              <div style="font-size:0.82rem;">Abderrahmane Ghassouine</div>
+            </div>
+          </a>
+          <a href="https://github.com/ghassouine19" target="_blank" class="contact-link">
+            <i class="fab fa-github"></i>
+            <div>
+              <div style="font-weight:600;color:var(--text-primary);">GitHub</div>
+              <div style="font-size:0.82rem;">ghassouine19</div>
+            </div>
+          </a>
+          <div class="contact-link" style="cursor:default;">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <div style="font-weight:600;color:var(--text-primary);">Localisation</div>
+              <div style="font-size:0.82rem;">Casablanca, Maroc 🇲🇦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-on-scroll">
+        <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Nom complet</label>
+              <input type="text" id="name" name="name" placeholder="Votre nom" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Sujet</label>
+            <input type="text" id="subject" name="subject" placeholder="Objet de votre message" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Votre message..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i>
+            Envoyer le message
+          </button>
+          <div id="formFeedback" style="margin-top:12px;text-align:center;font-size:0.88rem;display:none;"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">AG.</div>
+      <div class="footer-text">
+        © 2025 Abderrahmane Ghassouine — Fait avec ❤️ et ☕ à Casablanca
+      </div>
+      <div class="footer-socials">
+        <a href="https://github.com/ghassouine19" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:ghassouine19abdou@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ===== TYPEWRITER =====
+    const phrases = [
+      "Étudiant M1 Big Data & Cloud Computing",
+      "Data Engineer en devenir",
+      "Développeur Full Stack",
+      "Passionné de Cloud & Azure",
+      "Explorateur de la Data 🚀"
+    ];
+    let phraseIndex = 0, charIndex = 0, isDeleting = false;
+    const el = document.getElementById('typewriterText');
+
+    function typeWriter() {
+      const current = phrases[phraseIndex];
+      if (!isDeleting) {
+        el.textContent = current.slice(0, ++charIndex);
+        if (charIndex === current.length) {
+          isDeleting = true;
+          setTimeout(typeWriter, 2000);
+          return;
+        }
+      } else {
+        el.textContent = current.slice(0, --charIndex);
+        if (charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+      }
+      setTimeout(typeWriter, isDeleting ? 50 : 80);
+    }
+    typeWriter();
+
+    // ===== HAMBURGER MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ===== NAVBAR SCROLL EFFECT =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.5)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // ===== INTERSECTION OBSERVER (animate on scroll) =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // ===== SMOOTH ACTIVE NAV LINK =====
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-links a:not(.btn-cv-nav)');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 120) {
+          current = section.getAttribute('id');
+        }
+      });
+      navItems.forEach(item => {
+        item.style.color = '';
+        if (item.getAttribute('href') === '#' + current) {
+          item.style.color = 'var(--accent-1)';
+        }
+      });
+    });
+
+    // ===== CONTACT FORM =====
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('formFeedback');
+      const btn = e.target.querySelector('.btn-submit');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+      btn.disabled = true;
+      setTimeout(() => {
+        feedback.style.display = 'block';
+        feedback.style.color = '#48bb78';
+        feedback.innerHTML = '✅ Message envoyé avec succès ! Je vous répondrai bientôt.';
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
+        btn.disabled = false;
+        e.target.reset();
+        setTimeout(() => { feedback.style.display = 'none'; }, 5000);
+      }, 1200);
+    }
+
+    // ===== STAGGERED ANIMATION for cards =====
+    document.querySelectorAll('.skill-card, .project-card, .cert-card, .repo-card').forEach((card, i) => {
+      card.style.transitionDelay = `${(i % 6) * 0.05}s`;
+    });
+  </script>
+
+</body>
+</html>
