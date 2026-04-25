@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     /* ===== CSS RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -840,7 +841,7 @@
       <li><a href="#experience">Expérience</a></li>
       <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#" class="btn-cv-nav"><i class="fas fa-download"></i> CV</a></li>
+      <li><a href="#" onclick="generateCV();return false;" class="btn-cv-nav"><i class="fas fa-download"></i> CV</a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -874,7 +875,7 @@
         <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="btn btn-outline">
           <i class="fab fa-linkedin"></i> LinkedIn
         </a>
-        <a href="#" class="btn btn-outline">
+        <a href="#" onclick="generateCV();return false;" class="btn btn-outline">
           <i class="fas fa-download"></i> Télécharger CV
         </a>
       </div>
@@ -882,7 +883,7 @@
         <a href="https://github.com/ghassouine19" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/abderrahmane-ghassouine-93942a242" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         <a href="mailto:ghassouine19abdou@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
-        <a href="#" class="social-icon" title="CV"><i class="fas fa-file-pdf"></i></a>
+        <a href="#" onclick="generateCV();return false;" class="social-icon" title="CV"><i class="fas fa-file-pdf"></i></a>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -902,7 +903,7 @@
       <div class="about-avatar">
         <div class="avatar-ring">
           <div class="avatar-inner">
-            <i class="fas fa-user"></i>
+            <img src="img20250315_11563570%20(2).jpg" alt="Abderrahmane Ghassouine" />
           </div>
         </div>
         <div class="about-badges">
@@ -915,7 +916,7 @@
       <div class="about-text">
         <h3>Étudiant M1 Big Data &amp; <span style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Cloud Computing</span></h3>
         <p>
-          Passionné par la data engineering, le cloud computing et le développement full-stack, 
+          Passionné par la data engineering, le cloud computing, la <strong style="color:var(--accent-2);">Data Science</strong> et le développement full-stack, 
           je suis actuellement en Master 1 Big Data &amp; Cloud Computing à la Faculté des Sciences Aïn Chock — 
           Université Hassan II de Casablanca.
         </p>
@@ -927,6 +928,9 @@
         <p>
           Je cherche à appliquer mes compétences techniques pour résoudre des problèmes réels 
           et contribuer à des projets innovants alliant data, cloud et intelligence artificielle.
+          Je suis également très intéressé par la <strong style="color:var(--accent-2);">Data Science</strong> — 
+          analyse prédictive, machine learning et visualisation des données — 
+          dans le but de transformer la donnée brute en insights à forte valeur ajoutée.
         </p>
         <div class="about-stats">
           <div class="stat-item">
@@ -1566,6 +1570,7 @@
     const phrases = [
       "Étudiant M1 Big Data & Cloud Computing",
       "Data Engineer en devenir",
+      "Data Science Enthusiast 📊",
       "Développeur Full Stack",
       "Passionné de Cloud & Azure",
       "Explorateur de la Data 🚀"
@@ -1668,6 +1673,298 @@
     document.querySelectorAll('.skill-card, .project-card, .cert-card, .repo-card').forEach((card, i) => {
       card.style.transitionDelay = `${(i % 6) * 0.05}s`;
     });
+
+    // ===== GENERATE CV (PDF) =====
+    function generateCV() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      const pageW = 210;
+      const lm = 15; // left margin
+      const rm = 195; // right margin
+      const cw = rm - lm; // content width
+      let y = 0;
+
+      // ── Helper colours ──
+      const C_BLUE   = [99, 179, 237];
+      const C_PURPLE = [159, 122, 234];
+      const C_DARK   = [20, 20, 30];
+      const C_TEXT   = [40, 40, 50];
+      const C_MUTED  = [110, 110, 130];
+      const C_WHITE  = [255, 255, 255];
+      const C_LIGHT  = [240, 245, 255];
+
+      // ── Header background ──
+      doc.setFillColor(...C_DARK);
+      doc.rect(0, 0, pageW, 52, 'F');
+      doc.setFillColor(...C_BLUE);
+      doc.rect(0, 50, pageW, 2, 'F');
+
+      // Name
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.setTextColor(...C_WHITE);
+      y = 16;
+      doc.text('Abderrahmane Ghassouine', lm, y);
+
+      // Title
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10.5);
+      doc.setTextColor(...C_BLUE);
+      y = 24;
+      doc.text('Étudiant M1 Big Data & Cloud Computing  |  Data Science Enthusiast', lm, y);
+
+      // Contact row
+      doc.setFontSize(8.5);
+      doc.setTextColor(200, 220, 240);
+      y = 32;
+      doc.text('ghassouine19abdou@gmail.com', lm, y);
+      doc.text('Casablanca, Maroc 🇲🇦', lm + 75, y);
+      y = 38;
+      doc.text('github.com/ghassouine19', lm, y);
+      doc.text('linkedin.com/in/abderrahmane-ghassouine-93942a242', lm + 75, y);
+      y = 44;
+      doc.text('+212 — disponible pour opportunités de stage / CDI', lm, y);
+
+      y = 58; // start below header
+
+      // ── Section heading helper ──
+      function sectionTitle(title) {
+        doc.setFillColor(...C_LIGHT);
+        doc.rect(lm, y - 5, cw, 8, 'F');
+        doc.setFillColor(...C_BLUE);
+        doc.rect(lm, y - 5, 3, 8, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10.5);
+        doc.setTextColor(...C_DARK);
+        doc.text(title.toUpperCase(), lm + 6, y + 0.5);
+        y += 8;
+      }
+
+      // ── Line helper ──
+      function addLine() {
+        doc.setDrawColor(...C_BLUE);
+        doc.setLineWidth(0.3);
+        doc.line(lm, y, rm, y);
+        y += 4;
+      }
+
+      // ── Text helpers ──
+      function boldText(text, x, yy, size) {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(size || 9.5);
+        doc.setTextColor(...C_TEXT);
+        doc.text(text, x, yy);
+      }
+      function normalText(text, x, yy, size) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(size || 8.5);
+        doc.setTextColor(...C_MUTED);
+        doc.text(text, x, yy);
+      }
+      function bullet(text, yy) {
+        doc.setFillColor(...C_PURPLE);
+        doc.circle(lm + 4, yy - 1.2, 1, 'F');
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(...C_TEXT);
+        const lines = doc.splitTextToSize(text, cw - 12);
+        doc.text(lines, lm + 8, yy);
+        return lines.length * 4.5;
+      }
+
+      // ══════════════════════════
+      // PROFIL
+      // ══════════════════════════
+      sectionTitle('Profil');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.8);
+      doc.setTextColor(...C_TEXT);
+      const profil = doc.splitTextToSize(
+        'Étudiant passionné en Master 1 Big Data & Cloud Computing à l\'Université Hassan II de Casablanca. ' +
+        'Je maîtrise la data engineering, les architectures cloud sur Microsoft Azure et le développement full-stack (Spring Boot + ReactJS). ' +
+        'Très intéressé par la Data Science — analyse prédictive, machine learning et visualisation de données — ' +
+        'avec l\'ambition de transformer la donnée brute en insights à forte valeur ajoutée.',
+        cw
+      );
+      doc.text(profil, lm, y);
+      y += profil.length * 4.8 + 4;
+
+      // ══════════════════════════
+      // FORMATION
+      // ══════════════════════════
+      sectionTitle('Formation');
+
+      boldText('Master M1 — Big Data & Cloud Computing', lm, y);
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(...C_BLUE);
+      doc.text('2024 — En cours', rm, y, { align: 'right' });
+      y += 5;
+      normalText('Faculté des Sciences Aïn Chock — Université Hassan II, Casablanca', lm, y);
+      y += 4.5;
+      normalText('Data Engineering · Cloud Computing · Machine Learning · Apache Kafka · Spark · Microsoft Azure', lm, y, 8);
+      y += 7;
+
+      boldText('Licence — Sciences Mathématiques et Informatique (SMI)', lm, y);
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(...C_BLUE);
+      doc.text('2021 — 2024', rm, y, { align: 'right' });
+      y += 5;
+      normalText('Faculté des Sciences Aïn Chock — Université Hassan II, Casablanca', lm, y);
+      y += 4.5;
+      normalText('Option : Systèmes d\'Information Décisionnels (SID)', lm, y, 8);
+      y += 8;
+
+      // ══════════════════════════
+      // EXPÉRIENCE
+      // ══════════════════════════
+      sectionTitle('Expérience Professionnelle');
+
+      boldText('Développeur Full Stack — Stage', lm, y);
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(...C_BLUE);
+      doc.text('Août 2025 — Sept. 2025', rm, y, { align: 'right' });
+      y += 5;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...C_PURPLE);
+      doc.text('SYPEX · Casablanca-Settat, Maroc', lm, y);
+      y += 5.5;
+      y += bullet('Développement d\'une application web de gestion RH complète (congés, personnel, contrats)', y);
+      y += bullet('Conception et implémentation des modules de congés, employés et validations', y);
+      y += bullet('Stack : Spring Boot, ReactJS, MySQL, REST API, JWT', y);
+      y += 3;
+
+      boldText('Automatisme et Informatique Industrielle — Stage', lm, y);
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(...C_BLUE);
+      doc.text('Juin 2025 — Juil. 2025', rm, y, { align: 'right' });
+      y += 5;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...C_PURPLE);
+      doc.text('UDECO · Casablanca-Settat, Maroc', lm, y);
+      y += 5.5;
+      y += bullet('Programmation d\'automates Siemens (Step 7 / TIA Portal)', y);
+      y += bullet('Supervision industrielle et communication entre équipements', y);
+      y += 5;
+
+      // ══════════════════════════
+      // COMPÉTENCES
+      // ══════════════════════════
+      sectionTitle('Compétences Techniques');
+
+      const skills = [
+        ['Langages',          'Python · Java · JavaScript · SQL · R'],
+        ['Data Science / ML', 'Scikit-learn · Pandas · NumPy · Deep Learning · CNN · OpenCV · Azure ML Studio'],
+        ['Data & Cloud',      'Apache Kafka · PySpark · Airflow · Azure Event Hubs · Azure Functions · Docker · Stream Analytics'],
+        ['Backend',           'Spring Boot · REST API · JWT · Supabase · MySQL · MapStruct'],
+        ['Frontend',          'ReactJS · HTML/CSS · Nivo.js · MUI · PWA · CustomTkinter'],
+        ['Outils',            'Git · GitHub · VSCode · IntelliJ · Draw.io · Agile · UML'],
+      ];
+
+      skills.forEach(([cat, list]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(...C_DARK);
+        doc.text(cat + ' :', lm, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.8);
+        doc.setTextColor(...C_MUTED);
+        const lines = doc.splitTextToSize(list, cw - 48);
+        doc.text(lines, lm + 48, y);
+        y += Math.max(lines.length * 4.5, 5);
+      });
+      y += 3;
+
+      // ══════════════════════════
+      // PROJETS PHARES
+      // ══════════════════════════
+      sectionTitle('Projets Phares');
+
+      const projects = [
+        ['Budget Maroc', 'Application PWA de gestion budgétaire (Supabase, JavaScript, Auth)'],
+        ['Casablanca Weather Streaming', 'Pipeline temps réel sur Azure (Event Hubs, Functions, Stream Analytics, Docker)'],
+        ['Système de Pointage Automatique', 'Reconnaissance faciale (Python, OpenCV, Deep Learning, MySQL)'],
+        ['Application de Location de Véhicules', 'Plateforme full-stack (ReactJS, Spring Boot, MySQL, PayPal)'],
+        ['Transport Data Engineering Pipeline', 'Pipeline data engineering (Kafka, PySpark, Airflow, Python)'],
+      ];
+
+      projects.forEach(([name, desc]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(...C_TEXT);
+        doc.text('▸ ' + name, lm, y);
+        y += 4.5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(...C_MUTED);
+        const lines = doc.splitTextToSize(desc, cw - 5);
+        doc.text(lines, lm + 4, y);
+        y += lines.length * 4.5 + 1.5;
+      });
+
+      // ══════════════════════════
+      // CERTIFICATIONS
+      // ══════════════════════════
+      // Check if we need a new page
+      if (y > 240) { doc.addPage(); y = 20; }
+      sectionTitle('Certifications');
+
+      const certs = [
+        'MySQL Implementation Certified Associate — Oracle University (Mars 2026)',
+        'Introduction to Agentic AI — IEEE (Mars 2026)',
+        'Cloud Computing Fundamentals — IBM (Mars 2026)',
+        'Introduction to Modern AI — Cisco (Mars 2026)',
+        'Python Essentials 1 — Cisco (Mars 2026)',
+        'AWS S3 Basics — Coursera (Mars 2026)',
+        'Create a VPC Using AWS — Coursera (Mars 2026)',
+        'ML Pipelines with Azure ML Studio — Coursera (Fév. 2026)',
+      ];
+
+      certs.forEach(cert => {
+        doc.setFillColor(...C_BLUE);
+        doc.circle(lm + 3, y - 1.2, 1, 'F');
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(...C_TEXT);
+        doc.text(cert, lm + 7, y);
+        y += 5;
+      });
+      y += 2;
+
+      // ══════════════════════════
+      // LANGUES
+      // ══════════════════════════
+      if (y > 265) { doc.addPage(); y = 20; }
+      sectionTitle('Langues');
+      const langs = [
+        ['Arabe', 'Langue maternelle'],
+        ['Français', 'Courant (C1)'],
+        ['Anglais', 'Intermédiaire (B2)'],
+      ];
+      langs.forEach(([lang, level]) => {
+        boldText(lang + ' : ', lm, y, 9);
+        normalText(level, lm + 22, y, 9);
+        y += 5;
+      });
+
+      // ══════════════════════════
+      // Footer
+      // ══════════════════════════
+      doc.setFontSize(7.5);
+      doc.setTextColor(...C_MUTED);
+      doc.text('Portfolio : https://ghassouine19.github.io/portfolio  ·  Généré le ' + new Date().toLocaleDateString('fr-FR'), pageW / 2, 290, { align: 'center' });
+      doc.setDrawColor(...C_BLUE);
+      doc.setLineWidth(0.5);
+      doc.line(lm, 287, rm, 287);
+
+      doc.save('CV_Abderrahmane_Ghassouine.pdf');
+    }
   </script>
 
 </body>
